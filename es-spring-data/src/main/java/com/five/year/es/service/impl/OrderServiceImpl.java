@@ -103,8 +103,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public PageResponse<Order> findScroll(Order order, Integer pageIndex, Integer pageSize, String indexName, String scrollId) {
-        CriteriaQuery criteriaQuery = this.buildCriteriaQuery(order, pageIndex, pageSize);
-
+        CriteriaQuery criteriaQuery = new CriteriaQuery(new Criteria()
+                .and(new Criteria("orderNo").is(order.getOrderNo())))
+                .setPageable(PageRequest.of(pageIndex, pageSize));
         SearchScrollHits<Order> searchHits;
         if (!"".equals(scrollId)) {
             searchHits = elasticsearchRestTemplate.searchScrollContinue(scrollId, 1000, Order.class, IndexCoordinates.of(indexName));
@@ -121,6 +122,7 @@ public class OrderServiceImpl implements OrderService {
         PageResponse<Order> pageResponse = new PageResponse<>();
         pageResponse.setTotal(searchHits.getTotalHits());
         pageResponse.setResult(result);
+        pageResponse.setScrollId(searchHits.getScrollId());
         return pageResponse;
     }
 
