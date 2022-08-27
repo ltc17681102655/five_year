@@ -1,0 +1,15 @@
+{
+  "mappings": {
+    "person": {
+      "dynamic": "strict",
+      "properties": {
+        "name": {
+          "type": "text"
+        },
+        "age": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}

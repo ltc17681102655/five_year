@@ -17,7 +17,7 @@
     </mirror>
 </mirrors>
 
-3:下载elasticsearch
+3:下载elasticsearch,版本6.8.13
 https://www.elastic.co/downloads/past-releases/elasticsearch-6-8-13
 解压后:到elasticsearch-6.8.13\bin目录下启动elasticsearch.bat
 
