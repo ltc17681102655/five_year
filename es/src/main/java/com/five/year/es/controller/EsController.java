@@ -1,19 +1,16 @@
 package com.five.year.es.controller;
 
 import com.five.year.es.model.EsPageReq;
-import com.five.year.es.model.PersonModel;
 import org.elasticsearch.action.search.SearchRequestBuilder;
-import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,11 +29,12 @@ public class EsController {
     @PostMapping("query")
     public Object query(@RequestBody EsPageReq req) {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        List<QueryBuilder> filter = boolQueryBuilder.filter();
         if (!StringUtils.isEmpty(req.getAge())) {
-            boolQueryBuilder.must(QueryBuilders.termQuery("age", req.getAge()));
+            filter.add(QueryBuilders.termQuery("age", req.getAge()));
         }
         if (!StringUtils.isEmpty(req.getName())) {
-            boolQueryBuilder.must(QueryBuilders.matchQuery("nage", req.getName()));
+            filter.add(QueryBuilders.matchQuery("name", req.getName()));
         }
 
         SearchRequestBuilder searchRequestBuilder = transportClient.prepareSearch("person")

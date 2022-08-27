@@ -24,7 +24,9 @@ class EsApplicationTests {
     @Test
     void testName() {
         EsPageReq pageReq = new EsPageReq();
-        pageReq.setName("year");
+        //默认 standard分词后还是 five_year
+        //five year 会拆分成 five 和 year两个词
+        pageReq.setName("five_year");
         Object query = esController.query(pageReq);
         System.out.println(JSON.toJSONString(query));
     }

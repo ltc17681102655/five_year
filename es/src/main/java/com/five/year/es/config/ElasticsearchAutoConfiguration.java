@@ -14,7 +14,7 @@ import java.net.UnknownHostException;
 @Configuration
 public class ElasticsearchAutoConfiguration {
 
-    @Value("${es.hostName}")
+    @Value("${es.cluster-nodes}")
     private String clusterNodes;
 
     @Value("${es.cluster.name}")
