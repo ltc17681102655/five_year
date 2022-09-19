@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
  * @Date 2022/9/5 7:12
  * @Created by ltc
  */
-@Service
+//@Service
 public class TestService111 {
     public TestService111(TestService222 testService222) {
     }
